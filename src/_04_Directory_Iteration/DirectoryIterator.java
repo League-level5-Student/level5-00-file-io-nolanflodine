@@ -1,6 +1,8 @@
 package _04_Directory_Iteration;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JFileChooser;
 
@@ -18,6 +20,23 @@ public class DirectoryIterator {
 			File[] files = directory.listFiles();
 			if(files != null) {
 				for(File f : files) {
+					if(f.getAbsolutePath().contains(".java")) {
+						try {
+							FileWriter fw = new FileWriter(f.getAbsolutePath(), true);
+							
+							/*
+							NOTE: To append to a file that already exists, add true as a second parameter when calling the
+							      FileWriter constructor.
+							      (e.g. FileWriter fw = new FileWriter("src/_00_Intro_To_File_Input_and_Output/test2.txt", true);)
+							*/
+							
+							fw.write("//Copyright Nolan Flodine");
+								
+							fw.close();
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				  System.out.println(f.getAbsolutePath());
 				}
 			}
